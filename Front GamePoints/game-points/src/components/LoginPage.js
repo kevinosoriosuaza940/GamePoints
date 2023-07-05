@@ -19,7 +19,6 @@ const LoginPage = () => {
     })
     .then((response) => response.json(
 
-      console.log(response)
     ))
       .then((data) => {
         // Aquí puedes realizar acciones según la respuesta del backend
@@ -39,7 +38,6 @@ const LoginPage = () => {
         } else {
           alert('Nombre de usuario no existe');
           setIsUsernameValid(false);
-          console.log('Nombre de usuario no válido');
         }
       })
       .catch((error) => {
