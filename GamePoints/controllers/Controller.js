@@ -94,6 +94,34 @@ const checkPassword = async (req, res) => {
     res.status(500).json({ error: "Error al verificar la contraseña" });
   }
 };
+const assignTaskToUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { tarea, descripcion, puntos } = req.body;
+
+    // Buscar al usuario por su ID
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Agregar la nueva tarea al objeto "tareas"
+    const newTask = {
+      tarea,
+      descripcion,
+      puntos,
+    };
+    user.tareas.push(newTask);
+
+    // Guardar los cambios en la base de datos
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al asignar la tarea al usuario" });
+  }
+};
 
 
 
@@ -105,4 +133,5 @@ module.exports = {
   deleted,
   checkUsername,
   checkPassword,
+  assignTaskToUser,
 };
