@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import User from "./components/users/User";
+import Tasks from "./components/tasks/Tasks";
+
 
 export default function App() {
   return (
@@ -8,6 +10,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<User />} />
+        <Route path="/tasks" element={<Tasks />} />
       </Routes>
     </Router>
   );
