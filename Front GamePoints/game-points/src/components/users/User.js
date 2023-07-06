@@ -14,11 +14,11 @@ const User = () => {
     // Realiza la llamada a la API para obtener las tareas actualizadas del usuario
     const fetchUserTasks = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/users/${user._id}/tasks`);
+        const response = await fetch(`http://localhost:3001/api/users/${user._id}`);
         const data = await response.json();
         setUserUpdate((prevUser) => ({
           ...prevUser,
-          tareas: data,
+          tareas: data.tareas,
         }));
       } catch (error) {
         console.error("Error fetching user tasks:", error);
