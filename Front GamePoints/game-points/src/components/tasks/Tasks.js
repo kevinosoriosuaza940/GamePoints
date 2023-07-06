@@ -7,7 +7,6 @@ const Tasks = ({ userId, onEdit, onDelete, onClose }) => {
   const [showCreateTasks, setShowCreateTasks] = useState(false);
   const [editTask, setEditTask] = useState(false);
 
-
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -40,6 +39,19 @@ const Tasks = ({ userId, onEdit, onDelete, onClose }) => {
 
       // Actualizar el estado del usuario llamando a la función onEdit desde el componente padre
       onEdit();
+
+      // Actualizar los puntos del usuario en la base de datos
+      const response = await fetch(`http://localhost:3001/api/users/${userId}`);
+      const userData = await response.json();
+
+      const totalPoints = userData.tareas.reduce((sum, task) => sum + task.puntos, 0);
+      await fetch(`http://localhost:3001/api/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ numeroDePuntos: totalPoints }),
+      });
     } catch (error) {
       console.error("Error assigning task:", error);
     }
@@ -84,7 +96,7 @@ const Tasks = ({ userId, onEdit, onDelete, onClose }) => {
                   <button onClick={() => handleOpenEditTask(task._id)}>
                     Editar
                   </button>
-                  <button onClick={() => onDelete(task.id)}>Borrar</button>
+                  <button onClick={() => onDelete(task._id)}>Borrar</button>
                   <button onClick={() => assignTaskToUser(userId, task)}>
                     Asignar
                   </button>
