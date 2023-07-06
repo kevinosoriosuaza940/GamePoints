@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const EditTask = ({ taskId, onEdit, onClose }) => {
-    console.log('/////////////////',taskId,'//////////////////////')
   const [task, setTask] = useState({
-    nombreTarea: '',
-    descripcion: '',
+    nombreTarea: "",
+    descripcion: "",
     puntos: 0,
   });
 
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/tasks/${taskId}`);
+        const response = await fetch(
+          `http://localhost:3001/api/tasks/${taskId}`
+        );
         const data = await response.json();
         setTask(data);
       } catch (error) {
-        console.log('Error fetching task:', error);
+        console.log("Error fetching task:", error);
       }
     };
 
@@ -32,23 +33,26 @@ const EditTask = ({ taskId, onEdit, onClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3001/api/tasks/${taskId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(task),
-      });
+      const response = await fetch(
+        `http://localhost:3001/api/tasks/${taskId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(task),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Error updating task');
+        throw new Error("Error updating task");
       }
 
-      alert('Tarea actualizada correctamente');
-
+      alert("Tarea actualizada correctamente");
+      window.location.reload();
       onClose();
     } catch (error) {
-      console.error('Error updating task:', error);
+      console.error("Error updating task:", error);
     }
   };
 

@@ -22,7 +22,7 @@ const TasksList = ({ tasks, onClose, userId }) => {
       <div className="modal-content">
         <h2>Tareas</h2>
         <p>Número de Tareas: {userTasks.length}</p>
-        <ul>
+        <ul className="modal-style">
           {userTasks.map((task, index) => (
             <li key={index}>
               <p>Tarea: {task.tarea}</p>

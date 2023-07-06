@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.modal-style {
+  max-height: 400px; /* Establece la altura máxima que desees */
+  max-width: 800px;
+  overflow-x: auto;
+  overflow-y: auto; /* Habilita el scroll vertical si el contenido excede la altura máxima */
+}
